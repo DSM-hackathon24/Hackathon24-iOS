@@ -5,8 +5,9 @@ import RxSwift
 import RxCocoa
 
 class LoginView: BaseVC {
+    let viewModel = LoginViewModel()
 
-    private let loginIconUIImageView = UIImageView().then {
+    private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
     }
 
@@ -27,7 +28,7 @@ class LoginView: BaseVC {
         $0.customTextField(placeholder: "비밀번호를 입력해 주세요")
     }
 
-    let loginUIButton = UIButton().then {
+    let loginButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("Login", for: .normal)
@@ -35,14 +36,14 @@ class LoginView: BaseVC {
         $0.backgroundColor = IOSAsset.buttonColor.color
     }
 
-    let signUpQuestionLabel = UILabel().then {
+    let questionLabel = UILabel().then {
         $0.text = "아직 회원이 아니신가요?"
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.backgroundColor = .clear
     }
 
-    let signUpUIButton = UIButton().then {
+    let signUpButton = UIButton(type: .system).then {
         $0.setTitleColor( IOSAsset.signupUIButtonColor.color, for: .normal)
         $0.setTitle("회원가입하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
@@ -50,7 +51,22 @@ class LoginView: BaseVC {
         $0.setUnderline()
     }
     override func bind() {
-        signUpUIButton.rx.tap
+        let input = LoginViewModel.Input(
+            idText: idTextField.rx.text.orEmpty.asDriver(),
+            passwordText: passwordTextField.rx.text.orEmpty.asDriver(),
+            loginButtonDidTap: loginButton.rx.tap.asSignal()
+        )
+        let output = viewModel.transform(input)
+        output.result.subscribe(onNext: {
+            switch $0 {
+            case true:
+                self.dismiss(animated: true)
+                print("성공")
+            case false:
+                print("실패")
+            }
+        }).disposed(by: disposeBag)
+        signUpButton.rx.tap
             .bind {
                 let signupView = BaseNC(rootViewController: SignupView())
                 signupView.modalPresentationStyle = .fullScreen
@@ -60,18 +76,18 @@ class LoginView: BaseVC {
 
     override func addView() {
         [
-            loginIconUIImageView,
+            logoImageView,
             loginLabel,
             idTextField,
             passwordTextField,
-            loginUIButton,
-            signUpQuestionLabel,
-            signUpUIButton
+            loginButton,
+            questionLabel,
+            signUpButton
         ].forEach {view.addSubview($0)}
     }
 
     override func setLayout() {
-        loginIconUIImageView.snp.makeConstraints {
+        logoImageView.snp.makeConstraints {
             $0.width.height.equalTo(35)
             $0.top.equalToSuperview().offset(140)
             $0.leading.equalToSuperview().offset(24)
@@ -80,13 +96,13 @@ class LoginView: BaseVC {
 
         loginLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(140)
-            $0.leading.equalTo(loginIconUIImageView.snp.trailing).offset(5)
+            $0.leading.equalTo(logoImageView.snp.trailing).offset(5)
         }
 
         idTextField.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(50)
-            $0.top.equalTo(loginIconUIImageView.snp.bottom).offset(16)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
 
@@ -97,23 +113,23 @@ class LoginView: BaseVC {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        loginUIButton.snp.makeConstraints {
+        loginButton.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(55)
             $0.top.equalTo(passwordTextField.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
 
-        signUpQuestionLabel.snp.makeConstraints {
+        questionLabel.snp.makeConstraints {
             $0.height.equalTo(22)
-            $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
+            $0.top.equalTo(loginButton.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(94)
         }
 
-        signUpUIButton.snp.makeConstraints {
+        signUpButton.snp.makeConstraints {
             $0.height.equalTo(22)
-            $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
-            $0.leading.equalTo(signUpQuestionLabel.snp.trailing).offset(2)
+            $0.top.equalTo(loginButton.snp.bottom).offset(20)
+            $0.leading.equalTo(questionLabel.snp.trailing).offset(2)
         }
     }
 }
