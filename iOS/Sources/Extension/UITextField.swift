@@ -8,6 +8,10 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
       }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+           return true
+       }
 
     func customTextField(placeholder: String) {
         self.placeholder = placeholder
