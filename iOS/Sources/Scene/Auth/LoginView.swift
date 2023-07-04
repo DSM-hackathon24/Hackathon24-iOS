@@ -12,11 +12,11 @@ import SnapKit
 
 class LoginView: BaseVC {
 
-    private let loginPageIcon = UIImageView().then {
+    private let loginIconUIImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
     }
 
-    private let loginText = UILabel().then {
+    private let loginLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 28, weight: .bold)
         $0.text = "Login"
         $0.textColor = .black
@@ -33,7 +33,7 @@ class LoginView: BaseVC {
         $0.customTextField(placeholder: "비밀번호를 입력해 주세요")
     }
     
-    let loginButton = UIButton().then {
+    let loginUIButton = UIButton().then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("Login", for: .normal)
@@ -41,14 +41,14 @@ class LoginView: BaseVC {
         $0.backgroundColor = IOSAsset.buttonColor.color
     }
     
-    let signUpQuestion = UILabel().then {
+    let signUpQuestionLabel = UILabel().then {
         $0.text = "아직 회원이 아니신가요?"
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.backgroundColor = .clear
     }
     
-    let signUpText = UIButton().then {
+    let signUpUIButton = UIButton().then {
         $0.setTitleColor( IOSAsset.color1.color, for: .normal)
         $0.setTitle("회원가입하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
@@ -58,33 +58,33 @@ class LoginView: BaseVC {
 
     override func addView() {
         [
-            loginPageIcon,
-            loginText,
+            loginIconUIImageView,
+            loginLabel,
             idTextField,
             passwordTextField,
-            loginButton,
-            signUpQuestion,
-            signUpText
+            loginUIButton,
+            signUpQuestionLabel,
+            signUpUIButton
         ].forEach {view.addSubview($0)}
     }
 
     override func setLayout() {
-        loginPageIcon.snp.makeConstraints {
+        loginIconUIImageView.snp.makeConstraints {
             $0.width.height.equalTo(35)
             $0.top.equalToSuperview().offset(140)
             $0.leading.equalToSuperview().offset(24)
 
         }
 
-        loginText.snp.makeConstraints {
+        loginLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(140)
-            $0.leading.equalTo(loginPageIcon.snp.trailing).offset(5)
+            $0.leading.equalTo(loginIconUIImageView.snp.trailing).offset(5)
         }
 
         idTextField.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(50)
-            $0.top.equalTo(loginPageIcon.snp.bottom).offset(16)
+            $0.top.equalTo(loginIconUIImageView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
 
@@ -95,35 +95,23 @@ class LoginView: BaseVC {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        loginButton.snp.makeConstraints {
+        loginUIButton.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(55)
             $0.top.equalTo(passwordTextField.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
         
-        signUpQuestion.snp.makeConstraints {
+        signUpQuestionLabel.snp.makeConstraints {
             $0.height.equalTo(22)
-            $0.top.equalTo(loginButton.snp.bottom).offset(20)
+            $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(94)
         }
         
-        signUpText.snp.makeConstraints {
+        signUpUIButton.snp.makeConstraints {
             $0.height.equalTo(22)
-            $0.top.equalTo(loginButton.snp.bottom).offset(20)
-            $0.leading.equalTo(signUpQuestion.snp.trailing).offset(2)
+            $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
+            $0.leading.equalTo(signUpQuestionLabel.snp.trailing).offset(2)
         }
-    }
-}
-
-extension UIButton {
-    func setUnderline() {
-        guard let title = title(for: .normal) else { return }
-        let attributedString = NSMutableAttributedString(string: title)
-        attributedString.addAttribute(.underlineStyle,
-                                      value: NSUnderlineStyle.single.rawValue,
-                                      range: NSRange(location: 0, length: title.count)
-        )
-        setAttributedTitle(attributedString, for: .normal)
     }
 }
