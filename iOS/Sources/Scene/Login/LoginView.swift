@@ -1,6 +1,8 @@
 import UIKit
 import Then
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class LoginView: BaseVC {
 
@@ -41,11 +43,17 @@ class LoginView: BaseVC {
     }
 
     let signUpUIButton = UIButton().then {
-        $0.setTitleColor( IOSAsset.color1.color, for: .normal)
+        $0.setTitleColor( IOSAsset.signupUIButtonColor.color, for: .normal)
         $0.setTitle("회원가입하기", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
         $0.backgroundColor = .clear
         $0.setUnderline()
+    }
+    override func bind() {
+        signUpUIButton.rx.tap
+            .bind {
+                self.navigationController?.pushViewController(SignupView(), animated: true)
+            }.disposed(by: disposeBag)
     }
 
     override func addView() {

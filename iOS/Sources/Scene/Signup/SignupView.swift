@@ -1,6 +1,8 @@
 import UIKit
 import Then
 import SnapKit
+import RxCocoa
+import RxSwift
 
 class SignupView: BaseVC {
 
@@ -30,6 +32,13 @@ class SignupView: BaseVC {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         $0.backgroundColor = IOSAsset.buttonColor.color
+    }
+
+    override func bind() {
+        loginUIButton.rx.tap
+            .bind {
+                self.navigationController?.pushViewController(EmailVeiw(), animated: true)
+            }.disposed(by: disposeBag)
     }
 
     override func addView() {

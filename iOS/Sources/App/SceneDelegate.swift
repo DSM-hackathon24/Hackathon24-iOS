@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        let mainViewController = TabBarVC()
 //        let naviMainViewController = BaseNC(rootViewController: mainViewController)
-        window?.rootViewController = SignupView()
+        window?.rootViewController = BaseNC(rootViewController: LoginView())
         window?.makeKeyAndVisible()
 
     }
