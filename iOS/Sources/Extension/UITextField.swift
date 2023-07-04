@@ -7,12 +7,7 @@ extension UITextField {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
-      }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-           return true
-       }
-
+    }
     func customTextField(placeholder: String) {
         self.placeholder = placeholder
         self.font = .systemFont(ofSize: 16, weight: .medium)

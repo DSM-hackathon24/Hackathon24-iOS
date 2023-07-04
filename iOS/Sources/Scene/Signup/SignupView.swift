@@ -6,7 +6,7 @@ import RxSwift
 
 class SignupView: BaseVC {
 
-    private let signupIconUIImageView = UIImageView().then {
+    private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
     }
 
@@ -26,7 +26,7 @@ class SignupView: BaseVC {
         $0.customTextField(placeholder: "이메일을 입력해 주세요")
     }
 
-    let loginUIButton = UIButton().then {
+    let nextButton = UIButton().then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("다음", for: .normal)
@@ -35,7 +35,7 @@ class SignupView: BaseVC {
     }
 
     override func bind() {
-        loginUIButton.rx.tap
+        nextButton.rx.tap
             .bind {
                 self.navigationController?.pushViewController(EmailVeiw(), animated: true)
             }.disposed(by: disposeBag)
@@ -43,16 +43,16 @@ class SignupView: BaseVC {
 
     override func addView() {
         [
-            signupIconUIImageView,
+            logoImageView,
             signupLabel,
             idTextField,
             emailTextField,
-            loginUIButton
+            nextButton
         ].forEach {view.addSubview($0)}
     }
 
     override func setLayout() {
-        signupIconUIImageView.snp.makeConstraints {
+        logoImageView.snp.makeConstraints {
             $0.width.height.equalTo(35)
             $0.top.equalToSuperview().offset(140)
             $0.leading.equalToSuperview().offset(24)
@@ -61,13 +61,13 @@ class SignupView: BaseVC {
 
         signupLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(140)
-            $0.leading.equalTo(signupIconUIImageView.snp.trailing).offset(5)
+            $0.leading.equalTo(logoImageView.snp.trailing).offset(5)
         }
 
         idTextField.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(50)
-            $0.top.equalTo(signupIconUIImageView.snp.bottom).offset(16)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
 
@@ -78,7 +78,7 @@ class SignupView: BaseVC {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        loginUIButton.snp.makeConstraints {
+        nextButton.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(55)
             $0.top.equalTo(emailTextField.snp.bottom).offset(16)

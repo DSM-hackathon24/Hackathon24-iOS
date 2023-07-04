@@ -52,7 +52,9 @@ class LoginView: BaseVC {
     override func bind() {
         signUpUIButton.rx.tap
             .bind {
-                self.navigationController?.pushViewController(SignupView(), animated: true)
+                let signupView = BaseNC(rootViewController: SignupView())
+                signupView.modalPresentationStyle = .fullScreen
+                self.present(signupView, animated: true)
             }.disposed(by: disposeBag)
     }
 

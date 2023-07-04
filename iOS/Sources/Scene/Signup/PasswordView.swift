@@ -6,7 +6,7 @@ import RxSwift
 
 class PasswordView: BaseVC {
 
-    private let signupIconUIImageView = UIImageView().then {
+    private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
     }
 
@@ -28,7 +28,7 @@ class PasswordView: BaseVC {
         $0.isSecureTextEntry = true
     }
 
-    let signupUIButton = UIButton().then {
+    let signupButton = UIButton().then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("회원가입", for: .normal)
@@ -38,16 +38,16 @@ class PasswordView: BaseVC {
 
     override func addView() {
         [
-            signupIconUIImageView,
+            logoImageView,
             signupLabel,
             passwordTextField,
             checkPasswordTextField,
-            signupUIButton
+            signupButton
         ].forEach {view.addSubview($0)}
     }
 
     override func setLayout() {
-        signupIconUIImageView.snp.makeConstraints {
+        logoImageView.snp.makeConstraints {
             $0.width.height.equalTo(35)
             $0.top.equalToSuperview().offset(140)
             $0.leading.equalToSuperview().offset(24)
@@ -56,13 +56,13 @@ class PasswordView: BaseVC {
 
         signupLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(140)
-            $0.leading.equalTo(signupIconUIImageView.snp.trailing).offset(5)
+            $0.leading.equalTo(logoImageView.snp.trailing).offset(5)
         }
 
         passwordTextField.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(50)
-            $0.top.equalTo(signupIconUIImageView.snp.bottom).offset(16)
+            $0.top.equalTo(logoImageView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
 
@@ -73,7 +73,7 @@ class PasswordView: BaseVC {
             $0.leading.equalToSuperview().offset(24)
         }
 
-        signupUIButton.snp.makeConstraints {
+        signupButton.snp.makeConstraints {
             $0.width.equalTo(345)
             $0.height.equalTo(55)
             $0.top.equalTo(checkPasswordTextField.snp.bottom).offset(16)
