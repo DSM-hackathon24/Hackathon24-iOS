@@ -14,7 +14,6 @@ let project = Project.dynamicFramework(
     deploymentTarget: .iOS(targetVersion: "14.0", devices: [.iphone, .ipad]),
     dependencies: [
         .SPM.RxSwift,
-        .SPM.RealmSwift,
         .SPM.RxCocoa,
         .SPM.RxFlow,
         .SPM.RxMoya,
