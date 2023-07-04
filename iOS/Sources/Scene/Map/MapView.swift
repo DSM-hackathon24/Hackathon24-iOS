@@ -4,6 +4,6 @@ import UIKit
 import SnapKit
 import Then
 
-class MainVC: BaseVC {
+class MapView: BaseVC {
 
 }

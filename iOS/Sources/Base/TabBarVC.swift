@@ -12,24 +12,47 @@ class TabBarVC: UITabBarController {
 
     func setUpTabBarLayout() {
         let tabBar: UITabBar = self.tabBar
-        tabBar.barTintColor = UIColor(named: "BackGroundColor")
-        tabBar.unselectedItemTintColor = UIColor(named: "Description")
-        tabBar.tintColor = UIColor(named: "TextColor")
+        tabBar.barTintColor = IOSAsset.background1.color
+        tabBar.unselectedItemTintColor = IOSAsset.backGround5.color
+        tabBar.tintColor = IOSAsset.backGround7.color
         tabBar.backgroundColor = .white
-        tabBar.layer.borderColor = UIColor.clear.cgColor
-        tabBar.layer.cornerRadius = 20
+        tabBar.layer.shadowOpacity = 0.1
+        tabBar.layer.shadowColor = IOSAsset.shadowColor.color.cgColor
+        tabBar.layer.shadowRadius = 15
+        tabBar.itemSpacing = 50
         self.hidesBottomBarWhenPushed = true
     }
 
     func setUpTabBarItem() {
-        let mainVc = MainVC()
-        mainVc.tabBarItem = UITabBarItem(
-            title: "",
-            image: UIImage(named: "Calendar"),
-            selectedImage: UIImage(named: "Calendar_fill")
+        let quizView = QuizView()
+        quizView.tabBarItem = UITabBarItem(
+            title: "Quiz",
+            image: IOSAsset.quiz.image,
+            selectedImage: IOSAsset.quiz.image
+        )
+        let mapView = MapView()
+        mapView.tabBarItem = UITabBarItem(
+            title: "소화전 지도",
+            image: IOSAsset.map.image,
+            selectedImage: IOSAsset.map.image
+        )
+        let feedView = FeedView()
+        feedView.tabBarItem = UITabBarItem(
+            title: "커뮤니티",
+            image: IOSAsset.feed.image,
+            selectedImage: IOSAsset.feed.image
+        )
+        let myPage = MyPageView()
+        myPage.tabBarItem = UITabBarItem(
+            title: "마이페이지",
+            image: IOSAsset.myPage.image,
+            selectedImage: IOSAsset.myPage.image
         )
         viewControllers = [
-            mainVc
+            quizView,
+            mapView,
+            feedView,
+            myPage
         ]
     }
 }
