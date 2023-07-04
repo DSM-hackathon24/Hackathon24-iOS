@@ -8,7 +8,7 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
       }
-    
+
     func customTextField(placeholder: String) {
         self.placeholder = placeholder
         self.font = .systemFont(ofSize: 16, weight: .medium)

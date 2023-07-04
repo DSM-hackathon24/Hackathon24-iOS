@@ -26,13 +26,13 @@ class LoginView: BaseVC {
         $0.customTextField(placeholder: "아이디를 입력해 주세요")
         $0.addLeftPadding()
     }
-    
+
     let passwordTextField = UITextField().then {
         $0.isSecureTextEntry = true
         $0.addLeftPadding()
         $0.customTextField(placeholder: "비밀번호를 입력해 주세요")
     }
-    
+
     let loginUIButton = UIButton().then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
@@ -40,14 +40,14 @@ class LoginView: BaseVC {
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         $0.backgroundColor = IOSAsset.buttonColor.color
     }
-    
+
     let signUpQuestionLabel = UILabel().then {
         $0.text = "아직 회원이 아니신가요?"
         $0.textColor = .black
         $0.font = .systemFont(ofSize: 14, weight: .medium)
         $0.backgroundColor = .clear
     }
-    
+
     let signUpUIButton = UIButton().then {
         $0.setTitleColor( IOSAsset.color1.color, for: .normal)
         $0.setTitle("회원가입하기", for: .normal)
@@ -101,13 +101,13 @@ class LoginView: BaseVC {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(24)
         }
-        
+
         signUpQuestionLabel.snp.makeConstraints {
             $0.height.equalTo(22)
             $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(94)
         }
-        
+
         signUpUIButton.snp.makeConstraints {
             $0.height.equalTo(22)
             $0.top.equalTo(loginUIButton.snp.bottom).offset(20)
