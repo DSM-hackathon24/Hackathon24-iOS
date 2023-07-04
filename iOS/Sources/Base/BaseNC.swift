@@ -2,7 +2,7 @@ import UIKit
 
 class BaseNC: UINavigationController {
     private var backButtonImage: UIImage? {
-        return UIImage(systemName: "chevron.backward")!
+        return UIImage(systemName: "arrow.left")!
             .withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -12.0, bottom: 0.0, right: 0.0))
     }
 
