@@ -38,7 +38,7 @@ class SignupView: BaseVC {
             signupLabel,
             idTextField,
             emailTextField,
-            loginUIButton,
+            loginUIButton
         ].forEach {view.addSubview($0)}
     }
 
@@ -77,4 +77,3 @@ class SignupView: BaseVC {
         }
     }
 }
-
