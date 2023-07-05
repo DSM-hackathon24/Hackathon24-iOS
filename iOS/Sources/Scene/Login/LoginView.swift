@@ -69,7 +69,8 @@ class LoginView: BaseVC {
         output.result.subscribe(onNext: {
             switch $0 {
             case true:
-                self.dismiss(animated: true)
+                print(Token.accessToken)
+                self.navigationController?.pushViewController(TabBarVC(), animated: true)
                 print("성공")
             case false:
                 print("실패")
