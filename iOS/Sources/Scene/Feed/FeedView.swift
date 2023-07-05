@@ -13,7 +13,7 @@ class FeedView: BaseVC {
         let tempWebView = WKWebView(frame: .zero, configuration: self.generateWKWebViewConfiguration())
         return tempWebView
     }()
-    override func configureVC() {
+    override func viewWillAppear(_ animated: Bool) {
         let request = URLRequest(
             url: URL(string: "https://dsm-hackathon24.netlify.app/community")!,
             cachePolicy: .returnCacheDataElseLoad

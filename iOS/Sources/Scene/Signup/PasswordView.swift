@@ -31,7 +31,7 @@ class PasswordView: BaseVC {
         $0.isSecureTextEntry = true
     }
 
-    let signupButton = UIButton().then {
+    let signupButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("회원가입", for: .normal)

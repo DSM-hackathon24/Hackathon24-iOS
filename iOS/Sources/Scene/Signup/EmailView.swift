@@ -52,7 +52,7 @@ class EmailVeiw: BaseVC, UITextFieldDelegate {
         $0.keyboardType = UIKeyboardType.numberPad
     }
 
-    private let nextButton = UIButton().then {
+    private let nextButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("다음", for: .normal)

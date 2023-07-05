@@ -16,6 +16,7 @@ final class Service {
             .map { response -> NetworkingResult in
                 Token.accessToken = response.atk
                 Token.refreshToken = response.rtk
+                print(response.expiredAt)
                 return .getOk
             }
             .catch {[unowned self] in return .just(setNetworkError($0))}

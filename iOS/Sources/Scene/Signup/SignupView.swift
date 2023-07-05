@@ -26,7 +26,7 @@ class SignupView: BaseVC {
         $0.customTextField(placeholder: "이메일을 입력해 주세요")
     }
 
-    let nextButton = UIButton().then {
+    let nextButton = UIButton(type: .system).then {
         $0.layer.cornerRadius = 15
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("다음", for: .normal)
