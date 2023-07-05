@@ -16,9 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 //        let mainViewController = TabBarVC()
 //        let naviMainViewController = BaseNC(rootViewController: mainViewController)
-        window?.rootViewController = BaseNC(rootViewController: LoginView())
+        window?.rootViewController = BaseNC(rootViewController: TabBarVC())
         window?.makeKeyAndVisible()
-
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
