@@ -5,7 +5,7 @@ import RxCocoa
 import RxSwift
 
 class SignupView: BaseVC {
-
+    let viewModel = SignupViewModel()
     private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
     }
@@ -31,13 +31,35 @@ class SignupView: BaseVC {
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        $0.backgroundColor = IOSAsset.buttonColor.color
+        $0.backgroundColor = IOSAsset.buttonDisableColor.color
     }
 
     override func bind() {
-        nextButton.rx.tap
-            .bind {
-                self.navigationController?.pushViewController(EmailVeiw(), animated: true)
+        let input = SignupViewModel.Input(
+            idText: idTextField.rx.text.orEmpty.asDriver(),
+            emailText: emailTextField.rx.text.orEmpty.asDriver(),
+            nextButtonDidTap: nextButton.rx.tap.asSignal()
+        )
+        let output = viewModel.transform(input)
+        output.disable
+            .bind { [self] in
+                if $0 {
+                    nextButton.backgroundColor = IOSAsset.buttonColor.color
+                } else {
+                    nextButton.backgroundColor = IOSAsset.buttonDisableColor.color
+                }
+                nextButton.isEnabled = $0
+            }.disposed(by: disposeBag)
+        output.result
+            .subscribe {
+                if $0 {
+                    let emailView = EmailVeiw()
+                    emailView.email = self.emailTextField.text!
+                    emailView.id = self.idTextField.text!
+                    self.navigationController?.pushViewController(emailView, animated: true)
+                } else {
+                    print("error")
+                }
             }.disposed(by: disposeBag)
     }
 
