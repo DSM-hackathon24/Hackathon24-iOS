@@ -1,7 +1,7 @@
 import Foundation
 
 struct TokenModel: Codable {
-    let ark: String
+    let atk: String
     let rtk: String
     let expiredAt: Date
 }

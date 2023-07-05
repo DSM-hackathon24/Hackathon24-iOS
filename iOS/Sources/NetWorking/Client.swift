@@ -11,7 +11,7 @@ enum API {
 
 extension API: TargetType {
     var baseURL: URL {
-        return URL(string: "http://172.30.65.10:8080")!
+        return URL(string: "http://13.125.132.227")!
     }
 
     var path: String {

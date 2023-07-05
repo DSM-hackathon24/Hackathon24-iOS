@@ -14,7 +14,7 @@ final class Service {
             .filterSuccessfulStatusCodes()
             .map(TokenModel.self)
             .map { response -> NetworkingResult in
-                Token.accessToken = response.ark
+                Token.accessToken = response.atk
                 Token.refreshToken = response.rtk
                 return .getOk
             }
