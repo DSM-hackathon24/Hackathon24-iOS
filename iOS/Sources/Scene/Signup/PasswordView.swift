@@ -5,6 +5,9 @@ import RxCocoa
 import RxSwift
 
 class PasswordView: BaseVC {
+    let viewModel = PasswordViewModel()
+    var id: String = ""
+    var email: String = ""
 
     private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
@@ -34,6 +37,24 @@ class PasswordView: BaseVC {
         $0.setTitle("회원가입", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         $0.backgroundColor = IOSAsset.buttonColor.color
+    }
+    override func bind() {
+        let input = PasswordViewModel.Input(
+            idText: id,
+            emailText: email,
+            passwordText: passwordTextField.rx.text.orEmpty.asDriver(),
+            passwordValidText: checkPasswordTextField.rx.text.orEmpty.asDriver(),
+            signupButtonDidTap: signupButton.rx.tap.asSignal()
+        )
+        let output = viewModel.transform(input)
+        output.result
+            .bind {
+                if $0 {
+                    self.dismiss(animated: true)
+                } else {
+                    print("error")
+                }
+            }.disposed(by: disposeBag)
     }
 
     override func addView() {

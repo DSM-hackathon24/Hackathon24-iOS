@@ -33,7 +33,7 @@ class LoginView: BaseVC {
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("Login", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        $0.backgroundColor = IOSAsset.buttonColor.color
+        $0.backgroundColor = IOSAsset.buttonDisableColor.color
     }
 
     let questionLabel = UILabel().then {
@@ -57,6 +57,15 @@ class LoginView: BaseVC {
             loginButtonDidTap: loginButton.rx.tap.asSignal()
         )
         let output = viewModel.transform(input)
+        output.disable
+            .bind { [self] in
+                if $0 {
+                    loginButton.backgroundColor = IOSAsset.buttonColor.color
+                } else {
+                    loginButton.backgroundColor = IOSAsset.buttonDisableColor.color
+                }
+                loginButton.isEnabled = $0
+            }.disposed(by: disposeBag)
         output.result.subscribe(onNext: {
             switch $0 {
             case true:

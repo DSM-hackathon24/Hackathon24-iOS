@@ -5,6 +5,9 @@ import RxSwift
 import RxCocoa
 
 class EmailVeiw: BaseVC, UITextFieldDelegate {
+    var email: String = ""
+    var id: String = ""
+    let viewModel = EmailViewModel()
 
     private let logoImageView = UIImageView().then {
         $0.image = IOSAsset.logo.image
@@ -54,13 +57,38 @@ class EmailVeiw: BaseVC, UITextFieldDelegate {
         $0.setTitleColor(.white, for: .normal)
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
-        $0.backgroundColor = IOSAsset.buttonColor.color
+        $0.backgroundColor = IOSAsset.buttonDisableColor.color
     }
 
     override func bind() {
-        nextButton.rx.tap
+        let input = EmailViewModel.Input(
+            firstNumberText: firstNumberTextField.rx.text.orEmpty.asDriver(),
+            secondNumberText: secondNumberTextField.rx.text.orEmpty.asDriver(),
+            thirdNumberText: thirdNumberTextField.rx.text.orEmpty.asDriver(),
+            fourthNumberText: fourthNumberTextField.rx.text.orEmpty.asDriver(),
+            email: email,
+            nextButtonDidTap: nextButton.rx.tap.asSignal()
+        )
+        let output = viewModel.transform(input)
+        output.disable
+            .bind { [self] in
+                if $0 {
+                    nextButton.backgroundColor = IOSAsset.buttonColor.color
+                } else {
+                    nextButton.backgroundColor = IOSAsset.buttonDisableColor.color
+                }
+                nextButton.isEnabled = $0
+            }.disposed(by: disposeBag)
+        output.result
             .bind {
-                self.navigationController?.pushViewController(PasswordView(), animated: true)
+                if $0 {
+                    let passwordView = PasswordView()
+                    passwordView.email = self.email
+                    passwordView.id = self.id
+                    self.navigationController?.pushViewController(passwordView, animated: true)
+                } else {
+                    print("error")
+                }
             }.disposed(by: disposeBag)
     }
     override func configureVC() {
