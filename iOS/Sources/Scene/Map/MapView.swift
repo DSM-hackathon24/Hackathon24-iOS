@@ -13,7 +13,7 @@ class MapView: BaseVC {
         let tempWebView = WKWebView(frame: .zero, configuration: self.generateWKWebViewConfiguration())
         return tempWebView
     }()
-    override func viewWillAppear(_ animated: Bool) {
+    override func configureVC() {
         self.navigationController?.navigationBar.isHidden = true
         let request = URLRequest(
             url: URL(string: "https://dsm-hackathon24.netlify.app/map")!,
