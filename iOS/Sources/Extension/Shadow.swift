@@ -1,7 +1,7 @@
 import UIKit
 
 // swiftlint: disable identifier_name
-// swiftlintL disable function_parameter_count
+// swiftlint: disable function_parameter_count
 extension CALayer {
     func shadow (
     color: UIColor,
@@ -24,3 +24,5 @@ extension CALayer {
         }
     }
 }
+// swiftlint: enable identifier_name
+// swiftlint: enable function_parameter_count
