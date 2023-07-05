@@ -42,17 +42,10 @@ class TabBarVC: UITabBarController {
             image: IOSAsset.feed.image,
             selectedImage: IOSAsset.feed.image
         )
-        let myPage = MyPageView()
-        myPage.tabBarItem = UITabBarItem(
-            title: "마이페이지",
-            image: IOSAsset.myPage.image,
-            selectedImage: IOSAsset.myPage.image
-        )
         viewControllers = [
             quizView,
             mapView,
-            feedView,
-            myPage
+            feedView
         ]
     }
 }
