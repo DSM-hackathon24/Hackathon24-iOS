@@ -6,6 +6,10 @@ import Then
 import WebKit
 
 class MapView: BaseVC {
+    let titleLabel = UILabel().then {
+        $0.text = "소화전 지도"
+        $0.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+    }
     lazy var webview: WKWebView = {
         let controller = WKUserContentController()
         let config = WKWebViewConfiguration()
@@ -13,12 +17,14 @@ class MapView: BaseVC {
         let tempWebView = WKWebView(frame: .zero, configuration: self.generateWKWebViewConfiguration())
         return tempWebView
     }()
-    override func configureVC() {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
         let request = URLRequest(
             url: URL(string: "https://dsm-hackathon24.netlify.app/map")!,
             cachePolicy: .returnCacheDataElseLoad
         )
+        self.webview.scrollView.isScrollEnabled = true
+        
         self.webview.load(request)
     }
     private func generateWKWebViewConfiguration() -> WKWebViewConfiguration {
@@ -49,11 +55,20 @@ class MapView: BaseVC {
         configuration.websiteDataStore = dataStore
     }
     override func addView() {
-        view.addSubview(webview)
+        [
+            titleLabel,
+            webview
+        ].forEach {
+            view.addSubview($0)
+        }
     }
     override func setLayout() {
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalToSuperview().inset(20)
+        }
         webview.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(90)
         }

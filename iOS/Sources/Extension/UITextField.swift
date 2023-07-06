@@ -13,7 +13,7 @@ extension UITextField {
         self.font = .systemFont(ofSize: 16, weight: .medium)
         self.layer.cornerRadius = 15
         self.layer.borderWidth = 1
-        self.layer.borderColor = IOSAsset.background1.color.cgColor
+        self.layer.borderColor = IOSAsset.backfround3.color.cgColor
         self.layer.shadowOpacity = 0.1
         self.layer.shadowColor = UIColor.red.cgColor
         self.returnKeyType = UIReturnKeyType.done
